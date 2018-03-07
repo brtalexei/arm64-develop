@@ -57,6 +57,12 @@ qemu_clear_binfmts() {
     echo -1 > /proc/sys/fs/binfmt_misc/qemu-${cpu}
 }
 
+dump_binary() {
+    cpu=$1
+    qemu=/usr/bin/qemu-$1-static
+    cat $qemu
+}
+
 qemu_check_linux_platform() {
     if [ $(uname) != "Linux" ]; then
         echo "the script is only run in Linux"
@@ -65,13 +71,19 @@ qemu_check_linux_platform() {
 }
 
 qemu_check_linux_platform
-qemu_check_bintfmt_misc
+
+cpu=$2
 
 case "$1" in
 set)
-    qemu_set_binfmts $2 
+    qemu_check_bintfmt_misc
+    qemu_set_binfmts $cpu
     ;;
 clear)
-    qemu_clear_binfmts $2 
+    qemu_check_bintfmt_misc
+    qemu_clear_binfmts $cpu 
+    ;;
+bin)
+    dump_binary $cpu
     ;;
 esac

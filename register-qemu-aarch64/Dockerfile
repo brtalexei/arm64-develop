@@ -29,4 +29,5 @@ WORKDIR /qemu
 COPY --from=builder /qemu/qemu-static/bin/qemu-aarch64  /usr/bin/qemu-aarch64-static
 COPY ./qemu-binfmt-register.sh .
 
-ENTRYPOINT ["/qemu/qemu-binfmt-register.sh", "set", "aarch64"]
+ENTRYPOINT ["/qemu/qemu-binfmt-register.sh"]
+CMD ["set", "aarch64"]
