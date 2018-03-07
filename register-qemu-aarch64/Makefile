@@ -8,5 +8,5 @@ push:
 	docker tag ${IMAGE}:${VERSION} ${IMAGE}:${VERSION}
 	docker push ${IMAGE}:${VERSION}
 
-run:
+register:
 	docker run --rm --privileged ${IMAGE}:${VERSION}
