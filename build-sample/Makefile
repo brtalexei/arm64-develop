@@ -1,4 +1,4 @@
-IMAGE=brt/jenson-base
+IMAGE=brt/jenson-sample
 VERSION=0.0.1
 
 REGISTER=brt/binfmt-register:0.0.1
