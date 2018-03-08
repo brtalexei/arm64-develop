@@ -31,6 +31,6 @@ dir:
 
 init: dir set call_init_workspace call_create_pkg reset
 	
-	
+build: set call_make reset 	
 
 
