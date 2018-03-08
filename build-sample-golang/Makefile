@@ -1,16 +1,15 @@
-IMAGE=brt/jenson-sample
+IMAGE=brt/jenson-sample-golang
 VERSION=0.0.1
 
 REGISTER=brt/binfmt-register:0.0.1
 
 build:
+	docker run --rm -v ${PWD}:/usr/src/hello -w /usr/src/hello -e GOOS=linux -e GOARCH=arm64 golang:1.9 go build -v
+
+pack:
 	docker run --privileged ${REGISTER} set aarch64
 	docker build -t ${IMAGE}:${VERSION} .
 	docker run --privileged ${REGISTER} clear aarch64
-
-push:
-	docker tag ${IMAGE}:${VERSION} ${IMAGE}:${VERSION}
-	docker push ${IMAGE}:${VERSION}
 
 set:
 	docker run --privileged ${REGISTER} set aarch64
@@ -21,7 +20,13 @@ reset:
 	docker run --privileged ${REGISTER} clear aarch64
 	rm qemu-aarch64-static
 
-test:
+run:
 	docker run --rm -it -v ${PWD}/qemu-aarch64-static:/usr/bin/qemu-aarch64-static ${IMAGE}:${VERSION}
 
-all: build set test reset
+test: set run reset
+
+clean:
+	rm -f qemu-aarch64-static
+	rm -f hello
+
+all: build pack test
