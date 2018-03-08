@@ -1,5 +1,5 @@
 IMAGE=brt/jenson-sample-golang
-VERSION=0.0.1
+VERSION=0.0.2
 
 REGISTER=brt/binfmt-register:0.0.1
 
