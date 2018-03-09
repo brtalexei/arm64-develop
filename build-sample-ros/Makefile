@@ -1,3 +1,4 @@
+ROSIMAGE=arm64v8/ros:kinetic-ros-base
 REGISTER=brt/binfmt-register:0.0.1
 
 set:
@@ -13,7 +14,7 @@ ROSCMD=
 ROSHOME=/root/ws/src
 
 call_ros:
-	docker run --rm -v ${PWD}/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v ${PWD}/.ros:/root/.ros/ -v ${PWD}:/root/ws/ -w $(ROSHOME) arm64v8/ros:kinetic-ros-base $(ROSCMD)
+	docker run --rm -v ${PWD}/qemu-aarch64-static:/usr/bin/qemu-aarch64-static -v ${PWD}/.ros:/root/.ros/ -v ${PWD}:/root/ws/ -w $(ROSHOME) $(ROSIMAGE) $(ROSCMD)
 
 call_init_workspace: ROSCMD=catkin_init_workspace
 call_init_workspace: call_ros
@@ -32,5 +33,8 @@ dir:
 init: dir set call_init_workspace call_create_pkg reset
 	
 build: set call_make reset 	
+
+run:
+	docker-compose up
 
 

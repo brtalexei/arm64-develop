@@ -1,0 +1,9 @@
+version: '2'
+services:
+  roscore:
+    image: arm64v8/ros:kinetic-ros-base
+    volumes:
+      - ./qemu-aarch64-static:/usr/bin/qemu-aarch64-static
+      - ./.ros:/root/.ros/
+    command:
+      - roscore
