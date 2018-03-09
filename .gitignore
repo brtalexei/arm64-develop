@@ -3,3 +3,5 @@ qemu-*
 build-sample-bazel/bazel-*
 build-sample-ros/build/
 build-sample-ros/devel/
+build-sample-ros/.ros/
+
