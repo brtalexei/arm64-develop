@@ -7,19 +7,19 @@
 - name: download QEMU source 
   get_url:
     validate_certs: false
-    url: https://download.qemu.org/qemu-2.11.1.tar.xz
-    dest: "qemu/qemu-2.11.1.tar.xz"
+    url: "{{ qemu.dl_url }}"
+    dest: "qemu/src.tar.xz"
 
 # TODO: unarchive did not work with my version of ansible 
 # https://github.com/ansible/ansible-modules-core/issues/3241
 # waiting for uncompress module
 - name: Unarchive a file
-  command: "tar -x -v -C qemu -J -f qemu/qemu-2.11.1.tar.xz"
+  command: "tar -x -v -C qemu -J -f qemu/src.tar.xz"
   args:
-    creates: "qemu/qemu-2.11.1"
+    creates: "qemu/{{ qemu.src_name }}"
 
 - name: Configure
-  command: "../qemu-2.11.1/configure --target-list=aarch64-linux-user --static"
+  command: "../{{ qemu.src_name }}/configure --target-list=aarch64-linux-user --static"
   args:
     chdir: "qemu/build"
     creates: "config.status"

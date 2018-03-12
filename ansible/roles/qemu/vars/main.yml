@@ -1,0 +1,4 @@
+---
+ qemu:
+    dl_url: https://download.qemu.org/qemu-2.11.1.tar.xz
+    src_name: qemu-2.11.1
