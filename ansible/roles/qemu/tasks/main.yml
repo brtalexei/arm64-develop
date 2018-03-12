@@ -1,0 +1,38 @@
+---
+- name: Ensure build directory exists
+  file: 
+    path: "qemu/build" 
+    state: directory
+
+- name: download QEMU source 
+  get_url:
+    validate_certs: false
+    url: https://download.qemu.org/qemu-2.11.1.tar.xz
+    dest: "qemu/qemu-2.11.1.tar.xz"
+
+# TODO: unarchive did not work with my version of ansible 
+# https://github.com/ansible/ansible-modules-core/issues/3241
+# waiting for uncompress module
+- name: Unarchive a file
+  command: "tar -x -v -C qemu -J -f qemu/qemu-2.11.1.tar.xz"
+  args:
+    creates: "qemu/qemu-2.11.1"
+
+- name: Configure
+  command: "../qemu-2.11.1/configure --target-list=aarch64-linux-user --static"
+  args:
+    chdir: "qemu/build"
+    creates: "config.status"
+
+- name: Make
+  command: "make -j8"
+  args:
+    chdir: "qemu/build"
+    creates: "aarch64-linux-user/qemu-aarch64"
+
+#     && make install
+
+- name: Cleanup the build folder
+  file: 
+    path: "qemu" 
+    state: absent
