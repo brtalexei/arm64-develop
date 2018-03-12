@@ -10,3 +10,5 @@ build-sample-ros/.ros/
 ansible/qemu/
 
 archiva/data/
+
+nexus/data/
