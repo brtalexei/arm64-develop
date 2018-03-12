@@ -8,3 +8,5 @@ build-sample-ros/devel/
 build-sample-ros/.ros/
 
 ansible/qemu/
+
+archiva/data/
