@@ -1,11 +1,17 @@
 .vscode/
+.idea/
 
 qemu-*
 
 build-sample-bazel/bazel-*
+
 build-sample-ros/build/
 build-sample-ros/devel/
 build-sample-ros/.ros/
+
+build-sample-cmake/build/
+build-sample-cmake/cmake-build-debug/
+
 
 ansible/qemu/
 
