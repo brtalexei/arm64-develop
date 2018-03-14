@@ -1,6 +1,10 @@
-#include <iostream>
+#include <engine/motor.h>
+
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    motor vroom;
+
+    vroom.make_sound();
+
     return 0;
 }

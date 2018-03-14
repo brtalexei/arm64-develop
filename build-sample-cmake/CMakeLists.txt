@@ -12,7 +12,8 @@ include(ExternalProject)
 # Download and install GoogleTest
 ExternalProject_Add(
         gtest
-        URL https://github.com/google/googletest/archive/master.zip
+        GIT_REPOSITORY https://github.com/google/googletest
+        GIT_TAG release-1.8.0
         PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
         # Disable install step
         INSTALL_COMMAND ""
@@ -41,7 +42,14 @@ set_target_properties(libgmock PROPERTIES
         "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
         )
 
+# Overwrite system installed libgtest-dev
+include_directories(
+        BEFORE
+        "${source_dir}/googletest/include"
+        "${source_dir}/googlemock/include")
+
 enable_testing()
 
+add_subdirectory(src/engine)
 add_subdirectory(src/main)
 add_subdirectory(test/acceptance)
